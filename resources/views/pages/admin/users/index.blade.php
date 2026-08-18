@@ -114,16 +114,53 @@
                             {{-- User --}}
                             <td class="align-middle">
 
+                                <!-- <div class="d-flex align-items-center">
+
+                                                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
+                                                            style="width: 40px; height: 40px;">
+                                                            <strong class="text-white">
+                                                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                                                            </strong>
+                                                        </div>
+
+                                                        <div>
+                                                            <div class="font-weight-bold">
+                                                                {{ $user->name }}
+                                                            </div>
+
+                                                            <small class="text-muted">
+                                                                #{{ $user->id }}
+                                                            </small>
+                                                        </div>
+
+                                                    </div> -->
+                            <td class="align-middle">
+
                                 <div class="d-flex align-items-center">
 
-                                    <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
-                                        style="width: 40px; height: 40px;">
-                                        <strong class="text-white">
-                                            {{ strtoupper(substr($user->name, 0, 1)) }}
-                                        </strong>
-                                    </div>
+                                    @if($user->profile_image)
+
+                                        <img src="{{ asset('images/profiles/' . $user->profile_image) }}" alt="{{ $user->name }}"
+                                            class="rounded-circle mr-3" style="
+                                                                            width: 40px;
+                                                                            height: 40px;
+                                                                            object-fit: cover;
+                                                                        ">
+
+                                    @else
+
+                                        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
+                                            style="width: 40px; height: 40px;">
+                                            <strong class="text-white">
+
+                                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                                            </strong>
+                                        </div>
+
+                                    @endif
 
                                     <div>
+
                                         <div class="font-weight-bold">
                                             {{ $user->name }}
                                         </div>
@@ -131,9 +168,12 @@
                                         <small class="text-muted">
                                             #{{ $user->id }}
                                         </small>
+
                                     </div>
 
                                 </div>
+
+                            </td>
 
                             </td>
 

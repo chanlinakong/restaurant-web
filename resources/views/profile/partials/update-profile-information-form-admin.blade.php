@@ -1,110 +1,395 @@
-<section>
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
+<form
+    method="POST"
+    action="{{ route('profile.update') }}"
+    enctype="multipart/form-data"
+>
 
-    <form method="post" action="{{ route('profile.update') }}">
-        @csrf
-        @method('patch')
+    @csrf
+    @method('PATCH')
 
-        <div class="row">
-            {{-- Name --}}
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="name">
-                        <i class="fas fa-user text-muted mr-1"></i>
-                        {{ __('Name') }}
-                    </label>
 
-                    <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        class="form-control @error('name') is-invalid @enderror"
-                        value="{{ old('name', $user->name) }}"
-                        required
-                        autofocus
-                        autocomplete="name"
-                        placeholder="Enter your name"
+    {{-- ========================================================= --}}
+    {{-- PROFILE IMAGE --}}
+    {{-- ========================================================= --}}
+
+    <div class="form-group">
+
+        <label>
+            Profile Image
+        </label>
+
+        <div class="d-flex align-items-center">
+
+            {{-- Current Image --}}
+            <div class="mr-4">
+
+                @if(auth()->user()->profile_image)
+
+                    <img
+                        id="profile-preview"
+                        src="{{ asset('images/profiles/' . auth()->user()->profile_image) }}"
+                        alt="{{ auth()->user()->name }}"
+                        class="rounded-circle"
+                        style="
+                            width: 100px;
+                            height: 100px;
+                            object-fit: cover;
+                        "
                     >
 
-                    @error('name')
-                        <span class="invalid-feedback">
-                            {{ $message }}
-                        </span>
-                    @enderror
-                </div>
+                @else
+
+                    <div
+                        id="profile-placeholder"
+                        class="rounded-circle bg-warning
+                               d-flex align-items-center
+                               justify-content-center"
+                        style="
+                            width: 100px;
+                            height: 100px;
+                        "
+                    >
+
+                        <strong
+                            class="text-white"
+                            style="font-size: 36px;"
+                        >
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </strong>
+
+                    </div>
+
+
+                    <img
+                        id="profile-preview"
+                        src=""
+                        alt="Profile preview"
+                        class="rounded-circle"
+                        style="
+                            width: 100px;
+                            height: 100px;
+                            object-fit: cover;
+                            display: none;
+                        "
+                    >
+
+                @endif
+
             </div>
 
-            {{-- Email --}}
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="email">
-                        <i class="fas fa-envelope text-muted mr-1"></i>
-                        {{ __('Email') }}
-                    </label>
+
+            {{-- Upload --}}
+            <div class="flex-grow-1">
+
+                <div class="custom-file">
 
                     <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email', $user->email) }}"
-                        required
-                        autocomplete="username"
-                        placeholder="Enter your email"
+                        type="file"
+                        name="profile_image"
+                        id="profile_image"
+                        class="custom-file-input @error('profile_image') is-invalid @enderror"
+                        accept="image/jpeg,image/png,image/jpg,image/webp"
                     >
 
-                    @error('email')
-                        <span class="invalid-feedback">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                    <label
+                        class="custom-file-label"
+                        for="profile_image"
+                    >
+                        Choose image
+                    </label>
 
-                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                        <div class="alert alert-warning mt-3 mb-0">
-                            <i class="fas fa-exclamation-circle mr-1"></i>
+                </div>
 
-                            {{ __('Your email address is unverified.') }}
 
-                            <button
-                                form="send-verification"
-                                class="btn btn-link p-0 align-baseline"
+                <small class="form-text text-muted">
+                    JPG, JPEG, PNG or WEBP. Maximum 2MB.
+                </small>
+
+
+                @error('profile_image')
+
+                    <span class="text-danger">
+                        {{ $message }}
+                    </span>
+
+                @enderror
+
+
+                {{-- Remove Image --}}
+                @if(auth()->user()->profile_image)
+
+                    <div class="mt-2">
+
+                        <div class="custom-control custom-checkbox">
+
+                            <input
+                                type="checkbox"
+                                name="remove_image"
+                                value="1"
+                                id="remove_image"
+                                class="custom-control-input"
                             >
-                                {{ __('Resend verification email') }}
-                            </button>
+
+                            <label
+                                for="remove_image"
+                                class="custom-control-label text-danger"
+                            >
+                                Remove profile image
+                            </label>
+
                         </div>
 
-                        @if (session('status') === 'verification-link-sent')
-                            <div class="text-success small mt-2">
-                                <i class="fas fa-check-circle mr-1"></i>
-                                {{ __('A new verification link has been sent to your email address.') }}
-                            </div>
-                        @endif
-                    @endif
-                </div>
+                    </div>
+
+                @endif
+
             </div>
+
         </div>
 
-        {{-- Save --}}
-        <div class="d-flex align-items-center mt-3">
-            <button type="submit" class="btn btn-warning">
-                <i class="fas fa-save mr-1"></i>
-                {{ __('Save Changes') }}
-            </button>
+    </div>
 
-            @if (session('status') === 'profile-updated')
-                <span
-                    class="text-success ml-3"
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2500)"
+
+
+    <hr>
+
+
+
+    {{-- ========================================================= --}}
+    {{-- NAME --}}
+    {{-- ========================================================= --}}
+
+    <div class="form-group">
+
+        <label for="name">
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            name="name"
+            value="{{ old('name', auth()->user()->name) }}"
+            required
+            class="form-control @error('name') is-invalid @enderror"
+        >
+
+        @error('name')
+
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+
+        @enderror
+
+    </div>
+
+
+
+    <div class="row">
+
+        {{-- ===================================================== --}}
+        {{-- EMAIL --}}
+        {{-- ===================================================== --}}
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ old('email', auth()->user()->email) }}"
+                    required
+                    class="form-control @error('email') is-invalid @enderror"
                 >
-                    <i class="fas fa-check-circle mr-1"></i>
-                    {{ __('Saved successfully.') }}
-                </span>
-            @endif
+
+                @error('email')
+
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+
+                @enderror
+
+            </div>
+
         </div>
-    </form>
-</section>
+
+
+
+        {{-- ===================================================== --}}
+        {{-- PHONE --}}
+        {{-- ===================================================== --}}
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    value="{{ old('phone', auth()->user()->phone) }}"
+                    placeholder="Enter your phone number"
+                    class="form-control @error('phone') is-invalid @enderror"
+                >
+
+                @error('phone')
+
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+
+                @enderror
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- ========================================================= --}}
+    {{-- ROLE --}}
+    {{-- ========================================================= --}}
+
+    <!-- <div class="form-group">
+
+        <label>
+            Role
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            value="{{ auth()->user()->role instanceof \BackedEnum
+                ? auth()->user()->role->value
+                : auth()->user()->role }}"
+            readonly
+        >
+
+        <small class="form-text text-muted">
+            Your role can only be changed by an administrator.
+        </small>
+
+    </div> -->
+
+
+
+    {{-- ========================================================= --}}
+    {{-- MEMBER SINCE --}}
+    {{-- ========================================================= --}}
+
+    <!-- <div class="form-group">
+
+        <label>
+            Member Since
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            value="{{ auth()->user()->created_at?->format('F d, Y') }}"
+            readonly
+        >
+
+    </div> -->
+
+
+
+    {{-- ========================================================= --}}
+    {{-- ACTION --}}
+    {{-- ========================================================= --}}
+
+    <div class="d-flex justify-content-end mt-4">
+
+        <button
+            type="submit"
+            class="btn btn-warning"
+        >
+
+            <i class="fas fa-save mr-1"></i>
+
+            Save Changes
+
+        </button>
+
+    </div>
+
+</form>
+
+
+
+@section('js')
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const input = document.getElementById('profile_image');
+
+    const preview = document.getElementById('profile-preview');
+
+    const placeholder =
+        document.getElementById('profile-placeholder');
+
+    if (!input) {
+        return;
+    }
+
+
+    input.addEventListener('change', function (event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+
+        // Update Bootstrap file name
+        const label =
+            document.querySelector(
+                'label[for="profile_image"]'
+            );
+
+        if (label) {
+            label.textContent = file.name;
+        }
+
+
+        // Preview image
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            preview.src = e.target.result;
+
+            preview.style.display = 'block';
+
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+});
+
+</script>
+
+@stop

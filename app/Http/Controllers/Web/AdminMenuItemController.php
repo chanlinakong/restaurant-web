@@ -23,7 +23,7 @@ class AdminMenuItemController extends Controller
      */
     public function index()
     {
-        $menuItems = $this->menuItemService->getAvailableMenuItems();
+        $menuItems = $this->menuItemService->getAllMenuItems();
 
         $categories = Category::orderBy('name')->get();
 
