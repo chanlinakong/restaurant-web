@@ -28,104 +28,104 @@ class UserService
     }
 
     public function updateProfile(User $user, array $data): User
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Remove Profile Image
-    |--------------------------------------------------------------------------
-    */
+    {
+        /*
+        |--------------------------------------------------------------------------
+        | Remove Profile Image
+        |--------------------------------------------------------------------------
+        */
 
-    if (!empty($data['remove_image']) && $data['remove_image'] == 1) {
+        if (!empty($data['remove_image']) && $data['remove_image'] == 1) {
 
-        $this->deleteProfileImage($user->profile_image);
+            $this->deleteProfileImage($user->profile_image);
 
-        $data['profile_image'] = null;
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Upload New Profile Image
-    |--------------------------------------------------------------------------
-    */
-
-    if (
-        isset($data['profile_image']) &&
-        $data['profile_image'] instanceof UploadedFile
-    ) {
-
-        // Delete old image
-        $this->deleteProfileImage(
-            $user->profile_image
-        );
-
-
-        $image = $data['profile_image'];
-
-
-        // Generate unique filename
-        $filename = Str::slug(
-            pathinfo(
-                $image->getClientOriginalName(),
-                PATHINFO_FILENAME
-            )
-        )
-        . '-'
-        . Str::random(8)
-        . '.'
-        . $image->getClientOriginalExtension();
-
-
-        // Directory
-        $directory = public_path(
-            'images/profiles'
-        );
-
-
-        // Create directory if needed
-        if (!is_dir($directory)) {
-
-            mkdir(
-                $directory,
-                0755,
-                true
-            );
-
+            $data['profile_image'] = null;
         }
 
 
-        // Move file
-        $image->move(
-            $directory,
-            $filename
-        );
+        /*
+        |--------------------------------------------------------------------------
+        | Upload New Profile Image
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            isset($data['profile_image']) &&
+            $data['profile_image'] instanceof UploadedFile
+        ) {
+
+            // Delete old image
+            $this->deleteProfileImage(
+                $user->profile_image
+            );
 
 
-        // Store ONLY filename
-        $data['profile_image'] = $filename;
+            $image = $data['profile_image'];
+
+
+            // Generate unique filename
+            $filename = Str::slug(
+                pathinfo(
+                    $image->getClientOriginalName(),
+                    PATHINFO_FILENAME
+                )
+            )
+                . '-'
+                . Str::random(8)
+                . '.'
+                . $image->getClientOriginalExtension();
+
+
+            // Directory
+            $directory = public_path(
+                'images/profiles'
+            );
+
+
+            // Create directory if needed
+            if (!is_dir($directory)) {
+
+                mkdir(
+                    $directory,
+                    0755,
+                    true
+                );
+
+            }
+
+
+            // Move file
+            $image->move(
+                $directory,
+                $filename
+            );
+
+
+            // Store ONLY filename
+            $data['profile_image'] = $filename;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Remove Helper Field
+        |--------------------------------------------------------------------------
+        */
+
+        unset($data['remove_image']);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update User
+        |--------------------------------------------------------------------------
+        */
+
+        $user->update($data);
+
+
+        return $user;
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Remove Helper Field
-    |--------------------------------------------------------------------------
-    */
-
-    unset($data['remove_image']);
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Update User
-    |--------------------------------------------------------------------------
-    */
-
-    $user->update($data);
-
-
-    return $user;
-}
     public function update(User $user, array $data): User
     {
         /*
