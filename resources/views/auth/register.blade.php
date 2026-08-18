@@ -20,6 +20,13 @@ mb-6
         Join Bites and start ordering delicious meals
     </p>
 
+    @if (session('status'))
+        <div
+            class="mb-5 rounded-2xl bg-green-50 border border-green-200 p-4 text-sm text-green-700 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
