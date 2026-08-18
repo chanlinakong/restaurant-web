@@ -129,4 +129,26 @@ class MenuItemService
         // Delete database record
         return $menuItem->delete();
     }
+
+    public function search($search = null, $category = null)
+    {
+        $query = MenuItem::with('category')
+            ->where('is_available', true);
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($category) {
+            $query->where('category_id', $category);
+        }
+
+        return $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+    }
 }

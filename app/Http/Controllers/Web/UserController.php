@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -23,6 +24,18 @@ class UserController extends Controller
         return view('pages.admin.users.index', compact('users'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $role = $request->input('role');
+
+        $users = $this->userService->search($search, $role);
+
+        return view(
+            'pages.admin.users.index',
+            compact('users')
+        );
+    }
     /**
      * Show the form for creating a new resource.
      */

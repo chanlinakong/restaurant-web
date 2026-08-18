@@ -2,9 +2,9 @@
 
 @section('title', 'Order #' . $order->id)
 
-@section('css')
+<!-- @section('css')
     @vite(['resources/css/app.css'])
-@stop
+@stop -->
 
 @section('content_header')
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">

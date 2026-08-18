@@ -35,4 +35,26 @@ class UserService
     {
         return $user->delete();
     }
+
+    public function search($search = null, $role = null)
+    {
+        $query = User::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone', 'like', '%' . $search . '%');
+            });
+        }
+
+        if ($role) {
+            $query->where('role', $role);
+        }
+
+        return $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+    }
 }

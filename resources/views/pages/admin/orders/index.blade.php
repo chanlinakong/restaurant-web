@@ -4,13 +4,13 @@
 
 @section('content_header')
 
-    <h1 class="mt-3 mb-1">
-        Orders
-    </h1>
+<h1 class="mt-3 mb-1">
+    Orders
+</h1>
 
-    <p class="text-muted mb-0">
-        Manage and monitor restaurant orders.
-    </p>
+<p class="text-muted mb-0">
+    Manage and monitor restaurant orders.
+</p>
 
 @stop
 
@@ -18,12 +18,67 @@
 
 <div class="card card-outline card-primary">
 
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header">
 
-        <h3 class="card-title">
-            <i class="fas fa-shopping-cart mr-2"></i>
-            Order List
-        </h3>
+        <div class="row align-items-center">
+
+            {{-- Title --}}
+            <div class="col-md-6 mb-2 mb-md-0">
+
+                <h3 class="card-title">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    Order List
+                </h3>
+
+            </div>
+
+
+            {{-- Status Filter --}}
+            <div class="col-md-6">
+
+                <form method="GET" action="{{ route('admin.orders.search') }}">
+
+                    <div class="input-group">
+
+                        <select name="status" class="form-control" onchange="this.form.submit()">
+
+                            <option value="">
+                                All Orders
+                            </option>
+
+                            <option value="Pending" {{ request('status') === 'Pending' ? 'selected' : '' }}>
+                                Pending
+                            </option>
+
+                            <option value="Confirmed" {{ request('status') === 'Confirmed' ? 'selected' : '' }}>
+                                Confirmed
+                            </option>
+
+                            <option value="Completed" {{ request('status') === 'Completed' ? 'selected' : '' }}>
+                                Completed
+                            </option>
+
+                            <option value="Cancelled" {{ request('status') === 'Cancelled' ? 'selected' : '' }}>
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                        <div class="input-group-append">
+
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-filter"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -86,7 +141,7 @@
                                 @php
                                     $status = $order->status->value;
 
-                                    $statusClass = match($status) {
+                                    $statusClass = match ($status) {
                                         'pending' => 'badge-warning',
                                         'confirmed' => 'badge-info',
                                         'completed' => 'badge-success',
@@ -107,11 +162,8 @@
 
                             <td>
 
-                                <a
-                                    href="{{ route('admin.orders.show', $order) }}"
-                                    class="btn btn-primary btn-sm"
-                                    title="View Order"
-                                >
+                                <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-primary btn-sm"
+                                    title="View Order">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
@@ -123,10 +175,7 @@
 
                         <tr>
 
-                            <td
-                                colspan="7"
-                                class="text-center text-muted py-4"
-                            >
+                            <td colspan="7" class="text-center text-muted py-4">
 
                                 <i class="fas fa-shopping-cart fa-2x mb-2"></i>
 

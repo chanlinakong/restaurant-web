@@ -120,7 +120,7 @@ class OrderService
     //     });
 
     // }
- public function createOrder(array $data, $customerId)
+    public function createOrder(array $data, $customerId)
     {
         return DB::transaction(function () use ($data, $customerId) {
 
@@ -167,5 +167,23 @@ class OrderService
 
             return $order;
         });
+    }
+
+    public function searchByStatus(?string $status = null)
+    {
+        $query = Order::with([
+            'customer',
+            'handledBy',
+            'orderDetails.menuItem',
+        ]);
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        return $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
     }
 }

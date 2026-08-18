@@ -201,11 +201,18 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function () {
 
+        
+        Route::get('menu-items/search', [AdminMenuItemController::class, 'search'])->name('menu-items.search');
+
         Route::resource('category', CategoryController::class);
 
         Route::resource('menu-items', AdminMenuItemController::class);
 
+        Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+
         Route::resource('users', UserController::class);
+
+        Route::get('orders/search', [AdminOrderController::class, 'search'])->name('orders.search');
 
         Route::resource('orders', AdminOrderController::class)
             ->only([

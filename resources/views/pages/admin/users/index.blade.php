@@ -3,8 +3,12 @@
 @section('title', 'Users')
 
 @section('content_header')
-<div class="d-flex justify-content-between align-items-center"> <div> <h1 class="mb-1">Users</h1> <p class="text-muted mb-0">
-Manage customers, staff and administrator accounts. </p> </div>
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="mb-1">Users</h1>
+        <p class="text-muted mb-0">
+            Manage customers, staff and administrator accounts. </p>
+    </div>
 
 
     <a href="{{ route('admin.users.create') }}" class="btn btn-warning">
@@ -24,34 +28,57 @@ Manage customers, staff and administrator accounts. </p> </div>
 
     {{-- Filters --}}
     <div class="card-header">
-        <div class="row">
 
-            <div class="col-md-8 mb-2 mb-md-0">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fas fa-search"></i>
-                        </span>
+        <form method="GET" action="{{ route('admin.users.search') }}">
+
+            <div class="row">
+
+                {{-- Search --}}
+                <div class="col-md-8 mb-2 mb-md-0">
+
+                    <div class="input-group">
+
+                        <input type="text" name="search" class="form-control" placeholder="Search users..."
+                            value="{{ request('search') }}">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
                     </div>
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Search users..."
-                    >
                 </div>
+
+
+                {{-- Role --}}
+                <div class="col-md-4">
+
+                    <select name="role" class="form-control" onchange="this.form.submit()">
+                        <option value="">
+                            All Roles
+                        </option>
+
+                        <option value="Admin" {{ request('role') === 'Admin' ? 'selected' : '' }}>
+                            Admin
+                        </option>
+
+                        <option value="Staff" {{ request('role') === 'Staff' ? 'selected' : '' }}>
+                            Staff
+                        </option>
+
+                        <option value="Customer" {{ request('role') === 'Customer' ? 'selected' : '' }}>
+                            Customer
+                        </option>
+                    </select>
+
+                </div>
+
             </div>
 
-            <div class="col-md-4">
-                <select class="form-control">
-                    <option>All Roles</option>
-                    <option>Admin</option>
-                    <option>Staff</option>
-                    <option>Customer</option>
-                </select>
-            </div>
+        </form>
 
-        </div>
     </div>
 
     {{-- Table --}}
@@ -89,10 +116,8 @@ Manage customers, staff and administrator accounts. </p> </div>
 
                                 <div class="d-flex align-items-center">
 
-                                    <div
-                                        class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
-                                        style="width: 40px; height: 40px;"
-                                    >
+                                    <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
+                                        style="width: 40px; height: 40px;">
                                         <strong class="text-white">
                                             {{ strtoupper(substr($user->name, 0, 1)) }}
                                         </strong>
@@ -189,37 +214,24 @@ Manage customers, staff and administrator accounts. </p> </div>
                                 <div class="d-flex justify-content-end">
 
                                     {{-- View --}}
-                                    <a
-                                        href="{{ route('admin.users.show', $user) }}"
-                                        class="btn btn-sm btn-outline-secondary mr-1"
-                                        title="View"
-                                    >
+                                    <a href="{{ route('admin.users.show', $user) }}"
+                                        class="btn btn-sm btn-outline-secondary mr-1" title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
 
                                     {{-- Edit --}}
-                                    <a
-                                        href="{{ route('admin.users.edit', $user) }}"
-                                        class="btn btn-sm btn-outline-primary mr-1"
-                                        title="Edit"
-                                    >
+                                    <a href="{{ route('admin.users.edit', $user) }}"
+                                        class="btn btn-sm btn-outline-primary mr-1" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
                                     {{-- Delete --}}
-                                    <form
-                                        action="{{ route('admin.users.destroy', $user) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Delete this user?')"
-                                    >
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
+                                        onsubmit="return confirm('Delete this user?')">
                                         @csrf
                                         @method('DELETE')
 
-                                        <button
-                                            type="submit"
-                                            class="btn btn-sm btn-outline-danger"
-                                            title="Delete"
-                                        >
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </button>
 
@@ -247,10 +259,7 @@ Manage customers, staff and administrator accounts. </p> </div>
                                         Create your first user to get started.
                                     </p>
 
-                                    <a
-                                        href="{{ route('admin.users.create') }}"
-                                        class="btn btn-warning"
-                                    >
+                                    <a href="{{ route('admin.users.create') }}" class="btn btn-warning">
                                         <i class="fas fa-plus mr-1"></i>
                                         Add User
                                     </a>

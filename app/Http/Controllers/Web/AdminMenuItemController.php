@@ -8,6 +8,8 @@ use App\Services\MenuItemService;
 use App\Http\Requests\StoreMenuItemRequest;
 use App\Http\Requests\UpdateMenuItemRequest;
 use App\Models\MenuItem;
+use Illuminate\Http\Request;
+
 
 
 class AdminMenuItemController extends Controller
@@ -22,6 +24,24 @@ class AdminMenuItemController extends Controller
     public function index()
     {
         $menuItems = $this->menuItemService->getAvailableMenuItems();
+
+        $categories = Category::orderBy('name')->get();
+
+        return view(
+            'pages.admin.menu-items.index',
+            compact('menuItems', 'categories')
+        );
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $category = $request->input('category');
+
+        $menuItems = $this->menuItemService->search(
+            $search,
+            $category
+        );
 
         $categories = Category::orderBy('name')->get();
 

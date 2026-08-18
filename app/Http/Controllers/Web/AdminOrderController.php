@@ -6,26 +6,42 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Enums\OrderStatus;
-
+use App\Services\OrderService;
 use App\Models\Order;
 
 class AdminOrderController extends Controller
 {
+    public function __construct(
+        protected OrderService $orderService
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
 
     public function index()
     {
-         $orders = Order::with([
+        $orders = Order::with([
             'customer',
             'handledBy',
             'orderDetails.menuItem',
         ])
-        ->latest()
-        ->get();
+            ->latest()
+            ->get();
 
         return view('pages.admin.orders.index', compact('orders'));
+    }
+
+    public function search(Request $request)
+    {
+        $status = $request->input('status');
+
+        $orders = $this->orderService->searchByStatus($status);
+
+        return view(
+            'pages.admin.orders.index',
+            compact('orders')
+        );
     }
 
     /**
