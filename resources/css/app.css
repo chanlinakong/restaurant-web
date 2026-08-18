@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Horizontal Scroll Bar hiding */
+/* .no-scrollbar::-webkit-scrollbar {
+    display: none;
+} */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/* Restaurant menu scrollbar */
+
+.menu-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.menu-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.menu-scroll::-webkit-scrollbar-thumb {
+    background: #f59e0b;
+    border-radius: 20px;
+}
+
+
+.menu-scroll::-webkit-scrollbar-thumb:hover {
+    background: #d97706;
+}
+
+/* button login for checkout */
+.checkout-btn {
+    @apply block w-full text-center bg-amber-400 hover:bg-amber-500 
+    text-gray-900 font-extrabold py-3 rounded-2xl 
+    transition duration-200 shadow-lg shadow-amber-400/20 text-sm;
+}

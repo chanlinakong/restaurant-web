@@ -1,0 +1,282 @@
+@extends('adminlte::page')
+
+@section('title', 'Users')
+
+@section('content_header') <div class="d-flex justify-content-between align-items-center"> <div> <h1 class="mb-1">Users</h1> <p class="text-muted mb-0">
+Manage customers, staff and administrator accounts. </p> </div>
+
+
+    <a href="{{ route('admin.users.create') }}" class="btn btn-warning">
+        <i class="fas fa-plus mr-1"></i>
+        Add User
+    </a>
+</div>
+
+
+@stop
+
+@section('content')
+
+
+{{-- Main Card --}}
+<div class="card card-outline card-warning">
+
+    {{-- Filters --}}
+    <div class="card-header">
+        <div class="row">
+
+            <div class="col-md-8 mb-2 mb-md-0">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Search users..."
+                    >
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <select class="form-control">
+                    <option>All Roles</option>
+                    <option>Admin</option>
+                    <option>Staff</option>
+                    <option>Customer</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Table --}}
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead class="thead-light">
+                    <tr>
+                        <th>User</th>
+                        <th>Contact</th>
+                        <th>Role</th>
+                        <th>Verification</th>
+                        <th>Joined</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @forelse($users as $user)
+
+                        @php
+                            $role = $user->role instanceof \BackedEnum
+                                ? $user->role->value
+                                : $user->role;
+                        @endphp
+
+                        <tr>
+
+                            {{-- User --}}
+                            <td class="align-middle">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div
+                                        class="rounded-circle bg-warning d-flex align-items-center justify-content-center mr-3"
+                                        style="width: 40px; height: 40px;"
+                                    >
+                                        <strong class="text-white">
+                                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                                        </strong>
+                                    </div>
+
+                                    <div>
+                                        <div class="font-weight-bold">
+                                            {{ $user->name }}
+                                        </div>
+
+                                        <small class="text-muted">
+                                            #{{ $user->id }}
+                                        </small>
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                            {{-- Contact --}}
+                            <td class="align-middle">
+
+                                <div>
+                                    {{ $user->email }}
+                                </div>
+
+                                @if($user->phone)
+                                    <small class="text-muted">
+                                        {{ $user->phone }}
+                                    </small>
+                                @endif
+
+                            </td>
+
+                            {{-- Role --}}
+                            <td class="align-middle">
+
+                                @if($role === 'Admin')
+
+                                    <span class="badge badge-danger">
+                                        <i class="fas fa-shield-alt mr-1"></i>
+                                        Admin
+                                    </span>
+
+                                @elseif($role === 'Staff')
+
+                                    <span class="badge badge-primary">
+                                        <i class="fas fa-user-tie mr-1"></i>
+                                        Staff
+                                    </span>
+
+                                @else
+
+                                    <span class="badge badge-secondary">
+                                        <i class="fas fa-user mr-1"></i>
+                                        {{ $role }}
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            {{-- Verification --}}
+                            <td class="align-middle">
+
+                                @if($user->email_verified_at)
+
+                                    <span class="text-success">
+                                        <i class="fas fa-check-circle mr-1"></i>
+                                        Verified
+                                    </span>
+
+                                @else
+
+                                    <span class="text-muted">
+                                        <i class="fas fa-clock mr-1"></i>
+                                        Pending
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            {{-- Joined --}}
+                            <td class="align-middle text-muted">
+
+                                {{ $user->created_at?->format('M d, Y') }}
+
+                            </td>
+
+                            {{-- Actions --}}
+                            <td class="align-middle">
+
+                                <div class="d-flex justify-content-end">
+
+                                    {{-- View --}}
+                                    <a
+                                        href="{{ route('admin.users.show', $user) }}"
+                                        class="btn btn-sm btn-outline-secondary mr-1"
+                                        title="View"
+                                    >
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    {{-- Edit --}}
+                                    <a
+                                        href="{{ route('admin.users.edit', $user) }}"
+                                        class="btn btn-sm btn-outline-primary mr-1"
+                                        title="Edit"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    {{-- Delete --}}
+                                    <form
+                                        action="{{ route('admin.users.destroy', $user) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Delete this user?')"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-sm btn-outline-danger"
+                                            title="Delete"
+                                        >
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="6" class="text-center py-5">
+
+                                <div class="text-muted">
+
+                                    <i class="fas fa-users fa-3x mb-3"></i>
+
+                                    <h5>No users found</h5>
+
+                                    <p class="mb-3">
+                                        Create your first user to get started.
+                                    </p>
+
+                                    <a
+                                        href="{{ route('admin.users.create') }}"
+                                        class="btn btn-warning"
+                                    >
+                                        <i class="fas fa-plus mr-1"></i>
+                                        Add User
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    {{-- Pagination --}}
+    @if(method_exists($users, 'links'))
+        <div class="card-footer">
+            {{ $users->links() }}
+        </div>
+    @endif
+
+</div>
+
+@stop
