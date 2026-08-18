@@ -98,18 +98,20 @@ const cartStore = {
 
         const checkoutData = {
 
-        order_type: "delivery",
+            order_type: "delivery",
+            table_number: null,
+            payment_method: "stripe",
 
-        items: this.cart.map(item => ({
-            menu_item_id: item.id,
-            quantity: item.qty,
-            unit_price: item.price,
-            notes: null
-        })),
+            items: this.cart.map(item => ({
+                menu_item_id: item.id,
+                quantity: item.qty,
+                unit_price: item.price,
+                notes: null
+            })),
 
-        total: Number((this.subtotal * 1.1).toFixed(2))
+            total: Number((this.subtotal * 1.1).toFixed(2))
 
-    };
+        };
 
         sessionStorage.setItem(
             'checkout_cart',

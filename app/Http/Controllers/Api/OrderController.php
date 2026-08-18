@@ -39,7 +39,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
-        \Log::info('===== STORE ORDER REACHED =====');
+        
         try {
             $order = $this->orderService->createOrder(
                 $request->validated(),

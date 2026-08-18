@@ -1,8 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Users')
 
-@section('content_header') <div class="d-flex justify-content-between align-items-center"> <div> <h1 class="mb-1">Users</h1> <p class="text-muted mb-0">
+@section('content_header')
+<div class="d-flex justify-content-between align-items-center"> <div> <h1 class="mb-1">Users</h1> <p class="text-muted mb-0">
 Manage customers, staff and administrator accounts. </p> </div>
 
 

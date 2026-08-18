@@ -1,9 +1,8 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Add User')
 
 @section('content_header')
-
 
 <div class="mb-3">
 

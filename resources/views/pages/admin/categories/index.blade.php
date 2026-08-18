@@ -3,7 +3,6 @@
 @section('title', 'Categories')
 
 @section('content_header')
-
     <!-- <a
         href="{{ route('dashboard') }}"
         class="text-muted"

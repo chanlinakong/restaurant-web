@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
 @section('title', 'Profile')
 
@@ -73,7 +73,7 @@
         </div>
 
         <div class="card-body">
-            @include('profile.partials.update-profile-information-form')
+            @include('profile.partials.update-profile-information-form-admin')
         </div>
 
     </div>
@@ -96,7 +96,7 @@
         </div>
 
         <div class="card-body">
-            @include('profile.partials.update-password-form')
+            @include('profile.partials.update-password-form-admin')
         </div>
 
     </div>
@@ -121,7 +121,7 @@
                 Please make sure you really want to perform this action.
             </div>
 
-            @include('profile.partials.delete-user-form')
+            @include('profile.partials.delete-user-form-admin')
 
         </div>
 

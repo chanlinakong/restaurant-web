@@ -1,6 +1,6 @@
-@extends('adminlte::page')
+@extends('layouts.admin')
 
-@section('title', 'Add Menu Item')
+@section('title', 'Add Menu Items')
 
 @section('content_header')
 

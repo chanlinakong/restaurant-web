@@ -120,6 +120,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+     const logoutButton = document.getElementById('logout-button');
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener('click', function (event) {
+
+            event.preventDefault();
+
+            const form = document.createElement('form');
+
+            form.method = 'POST';
+            form.action = '{{ route('logout') }}';
+
+            const csrf = document.createElement('input');
+
+            csrf.type = 'hidden';
+            csrf.name = '_token';
+            csrf.value = '{{ csrf_token() }}';
+
+            form.appendChild(csrf);
+
+            document.body.appendChild(form);
+
+            form.submit();
+        });
+    }
+
 });
 </script>
 
