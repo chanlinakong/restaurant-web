@@ -24,8 +24,8 @@ function updateSummary() {
     const amount = Number(checkoutData.total || 0);
 
     subtotalEl.textContent = `$${amount.toFixed(2)}`;
-    taxEl.textContent = `$${(amount * 0.1).toFixed(2)}`; // Assuming 10% tax
-    totalEl.textContent = `$${(amount + amount * 0.1).toFixed(2)}`;
+    taxEl.textContent = `$${(amount * 0).toFixed(2)}`; // Assuming 0% tax
+    totalEl.textContent = `$${(amount).toFixed(2)}`;
 }
 
 

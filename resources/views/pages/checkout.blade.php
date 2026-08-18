@@ -56,14 +56,22 @@
                             x-text="'$' + $store.cart.subtotal.toFixed(2)"></span>
                     </div>
                     <div class="flex justify-between text-gray-500 dark:text-gray-400">
-                        <span>{{ __('Tax (10%)') }}</span>
-                        <span class="font-bold text-gray-900 dark:text-white"
-                            x-text="'$' + ($store.cart.subtotal * 0.1).toFixed(2)"></span>
+                        <span>{{ __('Tax (0%)') }}</span>
+                        <span class="font-bold text-gray-900 dark:text-white">
+                            $0.00
+                        </span>
+                    </div>
+
+                    <div class="flex justify-between text-gray-500 dark:text-gray-400">
+                        <span>{{ __('Service Fee (0%)') }}</span>
+                        <span class="font-bold text-gray-900 dark:text-white">
+                            $0.00
+                        </span>
                     </div>
                     <div
                         class="border-t border-gray-100 dark:border-gray-700 pt-3 flex justify-between text-sm font-black text-gray-900 dark:text-white">
                         <span>{{ __('Total') }}</span>
-                        <span class="text-amber-500" x-text="'$' + ($store.cart.subtotal * 1.1).toFixed(2)"></span>
+                        <span class="text-amber-500" x-text="'$' + ($store.cart.subtotal).toFixed(2)"></span>
                     </div>
                 </div>
 

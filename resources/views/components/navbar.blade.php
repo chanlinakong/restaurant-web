@@ -101,20 +101,32 @@
                 <!-- User Dropdown -->
                 <div class="relative" x-data="{ open: false }">
 
-                    <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-xl 
-                    bg-white dark:bg-gray-800 
-                    border border-gray-200 dark:border-gray-700
-                    text-sm font-semibold 
-                    text-gray-700 dark:text-gray-200
-                    hover:border-amber-400 transition">
+                    <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-xl
+                   bg-white dark:bg-gray-800
+                   border border-gray-200 dark:border-gray-700
+                   text-sm font-semibold
+                   text-gray-700 dark:text-gray-200
+                   hover:border-amber-400 transition">
 
                         <!-- Avatar -->
                         <div
-                            class="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-gray-900 font-bold">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            class="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-gray-900 font-bold overflow-hidden">
+
+                            @if(auth()->user()->profile_image)
+
+                                <img src="{{ asset('images/profiles/' . auth()->user()->profile_image) }}"
+                                    alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
+
+                            @else
+
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+
+                            @endif
+
                         </div>
 
 
+                        <!-- Name -->
                         <span>
                             {{ auth()->user()->name }}
                         </span>
@@ -130,21 +142,18 @@
                     </button>
 
 
-
                     <!-- Dropdown -->
-                    <div x-show="open" @click.away="open=false" x-transition class="absolute right-0 mt-2 w-48 
-                    bg-white dark:bg-gray-800 
-                    rounded-xl shadow-xl
-                    border border-gray-200 dark:border-gray-700
-                    py-2 z-50">
-
+                    <div x-show="open" @click.away="open=false" x-transition class="absolute right-0 mt-2 w-48
+                   bg-white dark:bg-gray-800
+                   rounded-xl shadow-xl
+                   border border-gray-200 dark:border-gray-700
+                   py-2 z-50">
 
                         <!-- Profile -->
                         <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-2
-                        text-sm text-gray-700 dark:text-gray-200
-                        hover:bg-gray-100 dark:hover:bg-gray-700">
+                       text-sm text-gray-700 dark:text-gray-200
+                       hover:bg-gray-100 dark:hover:bg-gray-700">
 
-                            <!-- User Chef Icon -->
                             <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -160,22 +169,18 @@
                         </a>
 
 
-
                         @if(auth()->user()->isCustomer())
 
                             <a href="{{ route('orders.index') }}" class="flex items-center gap-2 px-4 py-2
-                                    text-sm text-gray-700 dark:text-gray-200
-                                    hover:bg-gray-100 dark:hover:bg-gray-700">
-
+                               text-sm text-gray-700 dark:text-gray-200
+                               hover:bg-gray-100 dark:hover:bg-gray-700">
 
                                 <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
 
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 14h6m-6-4h6m2-6H7a2 2 0 00-2 2v16l3-2 3 2 3-2 3 2 3-2V6a2 2 0 00-2-2z" />
 
                                 </svg>
-
 
                                 My Orders
 
@@ -184,9 +189,7 @@
                         @endif
 
 
-
                         <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
-
 
 
                         <!-- Logout -->
@@ -195,8 +198,8 @@
                             @csrf
 
                             <button type="submit" class="w-full flex items-center gap-2 px-4 py-2
-                            text-sm text-red-500
-                            hover:bg-red-50 dark:hover:bg-gray-700">
+                           text-sm text-red-500
+                           hover:bg-red-50 dark:hover:bg-gray-700">
 
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
@@ -211,7 +214,6 @@
 
                         </form>
 
-
                     </div>
 
                 </div>
@@ -223,11 +225,11 @@
 
                 <!-- Login Button -->
                 <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-xl
-                    bg-amber-400 
-                    text-gray-900
-                    font-bold text-sm
-                    shadow-md shadow-amber-400/20
-                    hover:bg-amber-500 transition">
+                        bg-amber-400 
+                        text-gray-900
+                        font-bold text-sm
+                        shadow-md shadow-amber-400/20
+                        hover:bg-amber-500 transition">
 
                     Login
 

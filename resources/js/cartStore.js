@@ -109,7 +109,7 @@ const cartStore = {
                 notes: null
             })),
 
-            total: Number((this.subtotal * 1.1).toFixed(2))
+            total: Number((this.subtotal).toFixed(2))
 
         };
 

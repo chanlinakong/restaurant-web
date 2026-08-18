@@ -103,11 +103,6 @@
 
             </div>
 
-
-
-
-            <!-- Summary -->
-
             <!-- Summary -->
 
             @php
@@ -142,21 +137,17 @@
 
                 </div>
 
-
-
                 <div class="flex justify-between text-sm">
 
                     <span class="text-gray-500 dark:text-gray-400">
-                        Tax (10%)
+                        Tax (0%)
                     </span>
 
                     <span class="font-bold text-gray-900 dark:text-white">
-                        ${{ number_format($tax, 2) }}
+                        $0.00
                     </span>
 
                 </div>
-
-
 
                 <div class="flex justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
 
@@ -167,7 +158,7 @@
 
                     <span class="text-2xl font-black text-brand-500">
 
-                        ${{ number_format($total, 2) }}
+                        {{  $order->total_amount }}
 
                     </span>
 
