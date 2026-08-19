@@ -8,6 +8,14 @@ use Illuminate\Http\UploadedFile;
 
 class MenuItemService
 {
+    public function getAvailableMenuItems()
+    {
+        return MenuItem::with('category')
+            ->latest()
+            ->where("is_available", true)
+            ->get();
+    }
+
     public function getAllMenuItems()
     {
         return MenuItem::with('category')

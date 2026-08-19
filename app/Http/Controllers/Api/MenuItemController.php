@@ -18,7 +18,7 @@ class MenuItemController extends Controller
      */
     public function index()
     {
-        $menuItems = $this->menuItemService->getAllMenuItems();
+        $menuItems = $this->menuItemService->getAvailableMenuItems();
 
         return MenuItemResource::collection($menuItems);
     }
