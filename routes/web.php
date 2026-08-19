@@ -16,6 +16,8 @@ use App\Http\Controllers\Web\AdminOrderController;
 use App\Http\Controllers\Web\AdminMenuItemController;
 
 use App\Http\Controllers\Web\PaymentController;
+use App\Http\Controllers\Web\AddressController;
+use App\Http\Controllers\Web\CheckoutController;
 
 
 /*
@@ -32,8 +34,12 @@ Route::middleware([
     Route::get('/', [MenuItemController::class, 'index'])
         ->name('menu.index');
 
-    Route::get('/checkout', [MenuItemController::class, 'checkout'])
-        ->name('checkout.index');
+    // Route::get('/checkout', [MenuItemController::class, 'checkout'])
+    //     ->name('checkout.index');
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+    ->middleware(['auth', 'role:Customer'])
+    ->name('checkout.index');
 
     // Route::post('/order/submit', [OrderController::class, 'store'])
     //     ->name('order.submit');
@@ -122,6 +128,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:Customer'])->group(function () {
 
+//  Route::get('/checkout', [CheckoutController::class, 'index'])
+//         ->name('checkout');
+
     Route::get('/orders', [OrderController::class, 'index'])
         ->name('orders.index');
 
@@ -139,6 +148,27 @@ Route::middleware(['auth', 'role:Customer'])->group(function () {
 
     Route::get('/payment/success', [PaymentController::class, 'success'])
         ->name('payment.success');
+
+    Route::get('/addresses', [AddressController::class, 'index'])
+        ->name('addresses.index');
+
+    Route::get('/addresses/create', [AddressController::class, 'create'])
+        ->name('addresses.create');
+
+    Route::post('/addresses', [AddressController::class, 'store'])
+        ->name('addresses.store');
+
+    Route::get('/addresses/{address}/edit', [AddressController::class, 'edit'])
+        ->name('addresses.edit');
+
+    Route::put('/addresses/{address}', [AddressController::class, 'update'])
+        ->name('addresses.update');
+
+    Route::put('/addresses/{address}/default', [AddressController::class, 'setDefault'])
+        ->name('addresses.default');
+
+    Route::delete('/addresses/{address}', [AddressController::class, 'destroy'])
+        ->name('addresses.destroy');
 
 });
 

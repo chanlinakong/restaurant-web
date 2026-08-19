@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\AdminOrderController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\Api\AddressController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -70,6 +71,21 @@ Route::middleware(['auth:sanctum', 'role:Customer'])->group(function () {
 
 
     Route::get('/orders/{order}', [OrderController::class, 'show']);
+
+     Route::get('/addresses', [AddressController::class, 'index']);
+
+    Route::post('/addresses', [AddressController::class, 'store']);
+
+    Route::get('/addresses/{address}', [AddressController::class, 'show']);
+
+    Route::put('/addresses/{address}', [AddressController::class, 'update']);
+
+    Route::delete('/addresses/{address}', [AddressController::class, 'destroy']);
+
+    Route::put(
+        '/addresses/{address}/default',
+        [AddressController::class, 'setDefault']
+    );
 
     // Payment
     // Add your API PaymentController here later

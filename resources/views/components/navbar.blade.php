@@ -102,11 +102,11 @@
                 <div class="relative" x-data="{ open: false }">
 
                     <button @click="open = !open" class="flex items-center gap-2 px-3 py-2 rounded-xl
-                   bg-white dark:bg-gray-800
-                   border border-gray-200 dark:border-gray-700
-                   text-sm font-semibold
-                   text-gray-700 dark:text-gray-200
-                   hover:border-amber-400 transition">
+                       bg-white dark:bg-gray-800
+                       border border-gray-200 dark:border-gray-700
+                       text-sm font-semibold
+                       text-gray-700 dark:text-gray-200
+                       hover:border-amber-400 transition">
 
                         <!-- Avatar -->
                         <div
@@ -144,15 +144,15 @@
 
                     <!-- Dropdown -->
                     <div x-show="open" @click.away="open=false" x-transition class="absolute right-0 mt-2 w-48
-                   bg-white dark:bg-gray-800
-                   rounded-xl shadow-xl
-                   border border-gray-200 dark:border-gray-700
-                   py-2 z-50">
+                       bg-white dark:bg-gray-800
+                       rounded-xl shadow-xl
+                       border border-gray-200 dark:border-gray-700
+                       py-2 z-50">
 
                         <!-- Profile -->
                         <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 px-4 py-2
-                       text-sm text-gray-700 dark:text-gray-200
-                       hover:bg-gray-100 dark:hover:bg-gray-700">
+                           text-sm text-gray-700 dark:text-gray-200
+                           hover:bg-gray-100 dark:hover:bg-gray-700">
 
                             <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
@@ -171,20 +171,37 @@
 
                         @if(auth()->user()->isCustomer())
 
-                            <a href="{{ route('orders.index') }}" class="flex items-center gap-2 px-4 py-2
-                               text-sm text-gray-700 dark:text-gray-200
-                               hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <a href="{{ route('orders.index') }}" class="flex items-center gap-2 px-4 py-2
+                                               text-sm text-gray-700 dark:text-gray-200
+                                               hover:bg-gray-100 dark:hover:bg-gray-700">
 
-                                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 14h6m-6-4h6m2-6H7a2 2 0 00-2 2v16l3-2 3 2 3-2 3 2 3-2V6a2 2 0 00-2-2z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 14h6m-6-4h6m2-6H7a2 2 0 00-2 2v16l3-2 3 2 3-2 3 2 3-2V6a2 2 0 00-2-2z" />
 
-                                </svg>
+                                        </svg>
 
-                                My Orders
+                                        My Orders
 
-                            </a>
+                                    </a>
+
+                                    <a href="{{ route('addresses.index') }}" class="flex items-center gap-2 px-4 py-2
+                              text-sm text-gray-700 dark:text-gray-200
+                              hover:bg-gray-100 dark:hover:bg-gray-700">
+
+                                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z" />
+
+                                            <circle cx="12" cy="11" r="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" />
+                                        </svg>
+
+                                        Address
+                                    </a>
+
 
                         @endif
 
@@ -198,8 +215,8 @@
                             @csrf
 
                             <button type="submit" class="w-full flex items-center gap-2 px-4 py-2
-                           text-sm text-red-500
-                           hover:bg-red-50 dark:hover:bg-gray-700">
+                               text-sm text-red-500
+                               hover:bg-red-50 dark:hover:bg-gray-700">
 
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
@@ -225,11 +242,11 @@
 
                 <!-- Login Button -->
                 <a href="{{ route('login') }}" class="px-5 py-2.5 rounded-xl
-                        bg-amber-400 
-                        text-gray-900
-                        font-bold text-sm
-                        shadow-md shadow-amber-400/20
-                        hover:bg-amber-500 transition">
+                            bg-amber-400 
+                            text-gray-900
+                            font-bold text-sm
+                            shadow-md shadow-amber-400/20
+                            hover:bg-amber-500 transition">
 
                     Login
 

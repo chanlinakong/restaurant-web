@@ -13,9 +13,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
-#[Fillable(['name', 'email', 'phone', 'role', 'password','profile_image',])]
+#[Fillable(['name', 'email', 'phone', 'role', 'password', 'profile_image',])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -67,6 +68,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class, 'handled_by_id');
     }
 
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
 
 }
 
