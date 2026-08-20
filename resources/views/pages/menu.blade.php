@@ -72,10 +72,10 @@
                 @foreach($menuItems as $item)
 
                     <div x-show="
-                        selectedCategory === 'all'
-                        ||
-                        selectedCategory == '{{ $item->category_id }}'
-                        " x-transition>
+                            selectedCategory === 'all'
+                            ||
+                            selectedCategory == '{{ $item->category_id }}'
+                            " x-transition>
 
                         <x-menu-card :item="$item" />
 
@@ -99,90 +99,67 @@
                 <img src="{{ asset('images/chef-main.jpg') }}" alt="Head Chef" class="w-full h-full object-cover">
             </div>
         </div>
-
         <div>
-            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-4">
-                We Are More Than Multiple Service
-            </h2>
-            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8">
-                This is a type of restaurant which typically serves food and drinks, in addition to light refreshments
-                such as baked goods or snacks. The term comes from the French word meaning food.
-            </p>
+    <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-4">
+        {{ __('We Are More Than Multiple Service') }}
+    </h2>
 
-            <div class="grid grid-cols-2 gap-6 text-sm font-bold text-gray-800 dark:text-gray-200">
+    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8">
+        {{ __('This is a type of restaurant which typically serves food and drinks, in addition to light refreshments such as baked goods or snacks. The term comes from the French word meaning food.') }}
+    </p>
 
-                <!-- Online Order -->
-                <div class="flex items-center gap-3">
-                    <span
-                        class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
+    <div class="grid grid-cols-2 gap-6 text-sm font-bold text-gray-800 dark:text-gray-200">
 
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <!-- Online Order -->
+        <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13M7 13l-2-8" />
+                </svg>
+            </span>
 
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 7h13M7 13l-2-8" />
-
-                        </svg>
-
-                    </span>
-
-                    <span>Online Order</span>
-                </div>
-
-
-                <!-- Reservation -->
-                <div class="flex items-center gap-3">
-                    <span
-                        class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
-
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3M5 11h14M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-
-                        </svg>
-
-                    </span>
-
-                    <span>Pre-Reservation</span>
-                </div>
-
-
-                <!-- 24/7 Service -->
-                <div class="flex items-center gap-3">
-                    <span
-                        class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
-
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-
-                        </svg>
-
-                    </span>
-
-                    <span>24/7 Service</span>
-                </div>
-
-
-                <!-- Super Chefs -->
-                <div class="flex items-center gap-3">
-                    <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex">
-
-                        <svg class="w-4 h-4 m-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 14c3 0 5-2 5-5a5 5 0 00-10 0c0 3 2 5 5 5zm0 0v7m-4 0h8" />
-
-                        </svg>
-
-                    </span>
-
-                    <span>Super Chefs</span>
-                </div>
-
-            </div>
+            <span>{{ __('Online Order') }}</span>
         </div>
+
+        <!-- Reservation -->
+        <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3M5 11h14M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </span>
+
+            <span>{{ __('Pre-Reservation') }}</span>
+        </div>
+
+        <!-- 24/7 Service -->
+        <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </span>
+
+            <span>{{ __('24/7 Service') }}</span>
+        </div>
+
+        <!-- Super Chefs -->
+        <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-amber-100 dark:bg-gray-700 text-amber-600 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 14c3 0 5-2 5-5a5 5 0 00-10 0c0 3 2 5 5 5zm0 0v7m-4 0h8" />
+                </svg>
+            </span>
+
+            <span>{{ __('Super Chefs') }}</span>
+        </div>
+
+    </div>
+</div>
     </section>
 
     <!-- 4. Customer Reviews Section -->
@@ -217,7 +194,7 @@
     <!-- 5. Blog / Our Chefs Section -->
     <section id="blog" class="mb-20">
         <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-8">
-            Meet Our Chefs
+            {{ __('Meet Our Chefs') }}
         </h2>
 
         @php
@@ -256,7 +233,7 @@
                     </h3>
 
                     <span class="text-xs text-amber-500 font-medium">
-                        Master Chef
+                        {{  __('Master Chef')}}
                     </span>
                 </div>
             @endforeach

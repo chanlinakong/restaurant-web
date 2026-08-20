@@ -51,5 +51,23 @@
     "Address added successfully.": "បានបន្ថែមអាសយដ្ឋានដោយជោគជ័យ។",
     "Address updated successfully.": "បានធ្វើបច្ចុប្បន្នភាពអាសយដ្ឋានដោយជោគជ័យ។",
     "Address deleted successfully.": "បានលុបអាសយដ្ឋានដោយជោគជ័យ។",
-    "Default address updated successfully.": "បានធ្វើបច្ចុប្បន្នភាពអាសយដ្ឋានលំនាំដើមដោយជោគជ័យ។"
+    "Default address updated successfully.": "បានធ្វើបច្ចុប្បន្នភាពអាសយដ្ឋានលំនាំដើមដោយជោគជ័យ។",
+    "We Are More Than Multiple Service" : "យើងមិនមែនគ្រាន់តែជាសេវាកម្មច្រើនប្រភេទប៉ុណ្ណោះទេ",
+    "This is a type of restaurant which typically serves food and drinks, in addition to light refreshments such as baked goods or snacks. The term comes from the French word meaning food." : "នេះជាប្រភេទភោជនីយដ្ឋានដែលជាទូទៅផ្តល់ជូនអាហារ និងភេសជ្ជៈ ព្រមទាំងអាហារសម្រន់ដូចជា នំដុត ឬអាហារស្រាលៗផងដែរ។ ពាក្យនេះមានប្រភពមកពីភាសាបារាំង ដែលមានន័យថា អាហារ។",
+    "Online Order" : "ការកម្មង់អាហារតាមអ៊ីនធឺណិត",
+    "Pre-Reservation" : "ការកក់ទុកជាមុន",
+    "24/7 Service" : "សេវាកម្ម ២៤/៧",
+    "Super Chefs" : "មេចុងភៅជំនាញ",
+    "Meet Our Chefs": "មេចុងភៅជំនាញ",
+    "Master Chef": "មេចុងភៅ",
+    "My Orders": "ការកម្មង់របស់ខ្ញុំ",
+    "You don't have any orders yet.": "អ្នកមិនទាន់មានការកម្មង់ណាមួយនៅឡើយទេ។",
+    "Order": "ការកម្មង់",
+    "Qty": "ចំនួន",
+    "View Details": "មើលព័ត៌មានលម្អិត",
+    "Pending": "កំពុងរង់ចាំ",
+    "Confirmed": "បានបញ្ជាក់",
+    "Completed": "បានបញ្ចប់",
+    "Cancelled": "បានលុបចោល"
+
 }
